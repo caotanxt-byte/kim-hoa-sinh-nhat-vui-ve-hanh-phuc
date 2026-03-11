@@ -1,351 +1,160 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Happy Birthday Kim Hoa</title>
-
-<style>
-
-body{
-margin:0;
-background:radial-gradient(circle,#1a1a40,#000);
-color:white;
-font-family:Arial;
-text-align:center;
-overflow:hidden;
-}
-
-/* controls */
-
-.controls{
-margin-top:20px;
-}
-
-button{
-padding:10px 18px;
-margin:6px;
-border:none;
-border-radius:8px;
-background:#ff4d6d;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
-
-/* mic bar */
-
-.micbar{
-width:220px;
-height:10px;
-background:#333;
-margin:10px auto;
-border-radius:5px;
-overflow:hidden;
-}
-
-.level{
-height:100%;
-width:0%;
-background:#00ff88;
-}
-
-/* cake */
-
-.cake{
-margin-top:60px;
-}
-
-.layer{
-background:#ffb6c1;
-border-radius:10px;
-margin:auto;
-box-shadow:0 0 15px pink;
-}
-
-.layer1{width:220px;height:60px}
-.layer2{width:170px;height:50px;margin-top:-10px}
-.layer3{width:120px;height:40px;margin-top:-10px}
-
-.wrap{
-position:relative;
-width:220px;
-margin:auto;
-}
-
-/* candles */
-
-.candle{
-width:10px;
-height:35px;
-background:white;
-position:absolute;
-top:-40px;
-}
-
-.candle:nth-child(1){left:60px}
-.candle:nth-child(2){left:100px}
-.candle:nth-child(3){left:140px}
-
-/* flame */
-
-.flame{
-width:16px;
-height:22px;
-background:orange;
-border-radius:50%;
-position:absolute;
-top:-20px;
-box-shadow:0 0 20px orange;
-animation:flicker .12s infinite;
-}
-
-@keyframes flicker{
-50%{transform:scale(1.3)}
-}
-
-/* message */
-
-.message{
-margin-top:40px;
-display:flex;
-flex-direction:column;
-gap:14px;
-align-items:center;
-font-size:26px;
-}
-
-.line{
-opacity:0;
-transform:translateY(20px);
-transition:1s;
-}
-
-.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* hearts */
-
-.heart{
-position:absolute;
-font-size:22px;
-color:pink;
-animation:rise 6s linear forwards;
-}
-
-@keyframes rise{
-to{
-transform:translateY(-700px);
-opacity:0;
-}
-}
-
-/* fireworks */
-
-.firework{
-position:absolute;
-width:6px;
-height:6px;
-border-radius:50%;
-animation:explode 1s forwards;
-}
-
-@keyframes explode{
-to{
-transform:scale(30);
-opacity:0;
-}
-}
-
-</style>
+    <meta charset="UTF-8">
+    <title>HPBD KIM HOA - ELITE EDITION</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+    <style>
+        body { margin: 0; background: #050505; overflow: hidden; font-family: 'Montserrat', 'Segoe UI', sans-serif; }
+        #wish-layer {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .line {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 15px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s ease-out;
+            text-shadow: 0 0 10px rgba(255,105,180,0.5);
+        }
+        .line.show { opacity: 1; transform: translateY(0); }
+        .name { font-size: 4rem; font-weight: bold; color: #ff69b4; margin-bottom: 30px; }
+        #guide {
+            position: fixed; bottom: 20px; width: 100%; text-align: center;
+            color: rgba(255,255,255,0.3); letter-spacing: 3px; font-size: 0.7rem;
+        }
+    </style>
 </head>
-
 <body>
 
-<h1>🎉 Happy Birthday Kim Hoa 🎉</h1>
-
-<div class="controls">
-
-<button onclick="startMic()">🎤 Thổi bằng Mic</button>
-
-<button onclick="blow()">💨 Thổi thủ công</button>
-
-<div class="micbar">
-<div class="level" id="level"></div>
+<div id="guide">TAP TO START MIC & BLOW</div>
+<div id="wish-layer">
+    <div class="line name" id="l0">KIM HOA</div>
+    <div class="line" id="l1">Chúc mừng tuổi mới thật xinh đẹp,</div>
+    <div class="line" id="l2">Tiền nhiều như lá,</div>
+    <div class="line" id="l3">Người yêu nhiều như sao,</div>
+    <div class="line" id="l4">Và sớm trở thành đại gia bao cả thế giới. ✨</div>
 </div>
-
-</div>
-
-<div class="cake">
-
-<div class="wrap">
-
-<div class="layer layer3"></div>
-<div class="layer layer2"></div>
-<div class="layer layer1"></div>
-
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-
-</div>
-
-</div>
-
-<div class="message">
-
-<div class="line">Kim Hoa à ❤️</div>
-<div class="line">Chúc em tuổi mới thật rực rỡ ✨</div>
-<div class="line">Luôn xinh đẹp và hạnh phúc 💐</div>
-<div class="line">Tiền nhiều như lá 🍀</div>
-<div class="line">Và mọi điều tốt đẹp nhất 🌈</div>
-
-</div>
-
-<audio id="music"
-src="https://cdn.pixabay.com/audio/2022/10/30/audio_3c2e0c1f11.mp3">
-</audio>
 
 <script>
+let mic, vol;
+let isOut = false;
+let particles = [];
+let flameSize = 0;
 
-let blown=false
-
-/* MIC */
-
-async function startMic(){
-
-try{
-
-const stream = await navigator.mediaDevices.getUserMedia({audio:true})
-
-const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-
-const source = audioContext.createMediaStreamSource(stream)
-
-const analyser = audioContext.createAnalyser()
-
-source.connect(analyser)
-
-const data = new Uint8Array(analyser.frequencyBinCount)
-
-function detect(){
-
-analyser.getByteFrequencyData(data)
-
-let volume = data.reduce((a,b)=>a+b)/data.length
-
-document.getElementById("level").style.width=(volume*2)+"%"
-
-if(volume>30 && !blown){
-
-blown=true
-
-blow()
-
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    mic = new p5.AudioIn();
 }
 
-requestAnimationFrame(detect)
+function draw() {
+    background(10, 5, 15);
+    
+    let cx = width/2;
+    let cy = height/2 + 120;
 
+    if (!isOut) {
+        drawCuteCandle(cx, cy);
+        checkBlow();
+    } else {
+        drawMagicDust();
+    }
 }
 
-detect()
-
-}catch{
-
-alert("Bạn cần cho phép truy cập mic 🎤")
-
+function drawCuteCandle(x, y) {
+    // Đế nến (Cute Ribbons)
+    noStroke();
+    fill(255, 182, 193); // Pink Pastel
+    rect(x - 20, y, 40, 130, 10);
+    fill(255, 105, 180);
+    rect(x - 20, y + 30, 40, 15); // Ribbon trang trí
+    
+    // Ngọn lửa Cinematic
+    flameSize = lerp(flameSize, 50 + sin(frameCount * 0.2) * 10, 0.1);
+    
+    // Glow sâu đa tầng
+    for (let i = 15; i > 0; i--) {
+        fill(255, 50, 150, 12 - i);
+        ellipse(x, y - 40, i * 15, i * 20);
+    }
+    
+    // Lõi lửa
+    fill(255, 255, 200);
+    beginShape();
+    vertex(x, y - 40 - flameSize);
+    bezierVertex(x - 25, y - 20, x + 25, y - 20, x, y - 40 - flameSize);
+    endShape();
 }
 
+function checkBlow() {
+    if (mic.enabled) {
+        let v = mic.getLevel();
+        if (v > 0.15) blowIt();
+    }
 }
 
-/* BLOW */
-
-function blow(){
-
-document.querySelectorAll(".flame").forEach((f,i)=>{
-
-setTimeout(()=>{
-
-f.style.display="none"
-
-},i*400)
-
-})
-
-document.getElementById("music").play()
-
-showMessage()
-
-hearts()
-
-fireworks()
-
+function mousePressed() {
+    userStartAudio();
+    mic.start();
+    if (dist(mouseX, mouseY, width/2, height/2) < 150) blowIt();
 }
 
-/* MESSAGE */
+function blowIt() {
+    if (isOut) return;
+    isOut = true;
+    
+    // Tạo hiệu ứng hạt bụi tiên
+    for (let i = 0; i < 150; i++) {
+        particles.push(new Particle(width/2, height/2 - 50));
+    }
 
-function showMessage(){
-
-let lines=document.querySelectorAll(".line")
-
-lines.forEach((line,i)=>{
-
-setTimeout(()=>{
-
-line.classList.add("show")
-
-},i*1500)
-
-})
-
+    // Hiển thị lời chúc theo nhịp cinematic
+    for (let i = 0; i <= 4; i++) {
+        setTimeout(() => {
+            document.getElementById('l' + i).classList.add('show');
+        }, i * 800);
+    }
 }
 
-/* HEART */
-
-function hearts(){
-
-setInterval(()=>{
-
-let h=document.createElement("div")
-
-h.className="heart"
-
-h.innerHTML="❤"
-
-h.style.left=Math.random()*100+"vw"
-
-h.style.top="80vh"
-
-document.body.appendChild(h)
-
-},300)
-
+class Particle {
+    constructor(x, y) {
+        this.pos = createVector(x, y);
+        this.vel = p5.Vector.random2D().mult(random(2, 8));
+        this.acc = createVector(0, 0.05);
+        this.alpha = 255;
+        this.color = color(random([ '#ff69b4', '#ffd700', '#ffffff' ]));
+    }
+    update() {
+        this.vel.add(this.acc);
+        this.pos.add(this.vel);
+        this.alpha -= 3;
+    }
+    show() {
+        noStroke();
+        fill(red(this.color), green(this.color), blue(this.color), this.alpha);
+        ellipse(this.pos.x, this.pos.y, random(2, 5));
+    }
 }
 
-/* FIREWORK */
-
-function fireworks(){
-
-setInterval(()=>{
-
-let f=document.createElement("div")
-
-f.className="firework"
-
-f.style.left=Math.random()*100+"vw"
-
-f.style.top=Math.random()*60+"vh"
-
-f.style.background=`hsl(${Math.random()*360},100%,60%)`
-
-document.body.appendChild(f)
-
-},500)
-
+function drawMagicDust() {
+    for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].show();
+        if (particles[i].alpha <= 0) particles.splice(i, 1);
+    }
 }
 
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
 </script>
-
 </body>
 </html>
